@@ -55,7 +55,8 @@ pom -s 25m -l 10
 ### Controls
 
 - `Space` - Start/pause timer
-- `r` - Reset current session
+- `r` - Reset current session to full duration
+- `e` - End current session and move to next
 - `Tab` - Switch between timer and todo views
 - `q` - Quit
 

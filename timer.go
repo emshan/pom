@@ -34,6 +34,7 @@ type TimerModel struct {
 type TimerKeyMap struct {
 	Start key.Binding
 	Reset key.Binding
+	End   key.Binding
 }
 
 func DefaultTimerKeys() TimerKeyMap {
@@ -45,6 +46,10 @@ func DefaultTimerKeys() TimerKeyMap {
 		Reset: key.NewBinding(
 			key.WithKeys("r"),
 			key.WithHelp("r", "reset"),
+		),
+		End: key.NewBinding(
+			key.WithKeys("e"),
+			key.WithHelp("e", "end session"),
 		),
 	}
 }
@@ -96,6 +101,10 @@ func (m TimerModel) Update(msg tea.Msg) (TimerModel, tea.Cmd) {
 			duration := m.getCurrentSessionDuration()
 			m.timer = timer.NewWithInterval(duration, time.Second)
 			return m, nil
+		case "e":
+			m.isRunning = false
+			newModel := m.nextSession()
+			return newModel, nil
 		}
 	case timer.TickMsg:
 		if m.isRunning {
